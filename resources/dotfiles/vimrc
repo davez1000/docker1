@@ -1,0 +1,6 @@
+set showmode
+" set number
+set nocompatible
+set syntax=automatic
+set backspace=indent,eol,start
+
