@@ -1,0 +1,22 @@
+<Directory /srv/>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+</Directory>
+
+<VirtualHost *:80>
+        DocumentRoot "/srv/application/web"
+        <Directory "/srv/application/web">
+                Options All
+                AllowOverride All
+                Order allow,deny
+                Allow from all
+        </Directory>
+        #SetEnv LN_APP_INIFILE '/Users/dave/www/pensionsworld/pensionsworld.ini'
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

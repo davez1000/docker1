@@ -2,6 +2,9 @@ FROM ubuntu
 
 MAINTAINER Dave Brown <stuff@davs.me>
 
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+
 RUN apt-get update
 
 # disable interactive warnings
@@ -28,11 +31,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 ADD resources/dotfiles/vimrc /root/.vimrc
 
+RUN a2enmod rewrite.load
+
+RUN mkdir /srv/application
+RUN touch application.txt
+
 # add sites
-ADD resources/vhosts/sucesionaranda/sucesionaranda.dev.conf /etc/apache2/sites-available/sucesionaranda.dev.conf
-RUN a2ensite sucesionaranda.dev.conf
-RUN mkdir -p /var/www/sucesionaranda.dev
-ADD resources/vhosts/sucesionaranda/index.html /var/www/sucesionaranda.dev/index.html
+RUN mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.backup
+ADD resources/vhosts/default/default /etc/apache2/sites-available/000-default.conf
 
 ADD resources/apps/run.sh /run.sh
 RUN chmod 0755 /run.sh
