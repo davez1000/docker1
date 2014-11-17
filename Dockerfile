@@ -40,11 +40,11 @@ RUN chmod 0700 /root/.ssh
 ADD resources/ssh/github_temp /root/.ssh/id_rsa
 RUN chmod 0600 /root/.ssh/id_rsa
 RUN touch /root/.ssh/config
-RUN echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 
-RUN git clone git@github.com:davez1000/docker1.git /srv/application
+RUN git clone git@github.com:davez1000/symfony2t.git /srv/application
 RUN chown -R www-data:www-data /srv/application
-RUN rm -rf /srv/application/app/cache/*
+#RUN rm -rf /srv/application/app/cache/*
 RUN chmod 0777 /srv/application/app/cache
 
 # add sites
